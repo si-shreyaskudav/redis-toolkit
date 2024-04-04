@@ -9,7 +9,7 @@ namespace RedisToolkit.Interfaces
 {
     public interface ILeaderboardService
     {
-        Task<SortedSetMember> GetMemberRank(string sortedSetKey, string member);
-
+        Task<SortedSetMember> GetLeaderboardMember(string sortedSetKey, string member);
+        Task<IEnumerable<SortedSetMember>> GetLeaderboardMembers(string sortedSetKey, long count);
     }
 }
