@@ -12,7 +12,7 @@ namespace RedisToolkit.Interfaces.Datatypes
         Task<double> IncrementalAddScoreAsync(string sortedSetKey, string member, int score);
         Task<StackExchange.Redis.SortedSetEntry[]> GetSortedSetsListByOrder(string key, int count, Order orderBy = Order.Ascending);
         Task<long> GetCountAsync(string sortedSetKey);
-        Task<List<SortedSetMember>> GetRangeAsync(string sortedSetKey, long start = 0, long end = -1, Order orderBy = Order.Ascending);
+        Task<List<SortedSetMember>> GetRangeAsync(string sortedSetKey, long start = 0, long end = -1, Order orderBy = Order.Ascending, bool shouldFetchRank = true  );
         Task<bool> AddScoreAsync(string sortedSetKey, string member, int score);
         Task<double> GetScoreByMemberAsync(string sortedSetKey, string member);
     }

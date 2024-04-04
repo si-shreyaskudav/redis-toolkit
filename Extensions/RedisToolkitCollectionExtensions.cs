@@ -10,9 +10,9 @@ namespace RedisToolkit.Extensions
     {
         public static IServiceCollection AddRedisToolkit(this IServiceCollection services, string namedConnectionStrings)
         {
-            services.AddSingleton<IRedisConnectionBase>(provider =>
+            services.AddSingleton<IRedisBase>(provider =>
             {
-                return new RedisConnectionBase(namedConnectionStrings);
+                return new RedisBase(namedConnectionStrings);
             });
 
             services.AddSingleton<IRedisSortedSetService, RedisSortedSetService>();

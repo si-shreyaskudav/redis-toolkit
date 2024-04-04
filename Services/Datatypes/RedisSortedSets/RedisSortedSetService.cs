@@ -10,9 +10,9 @@ namespace RedisToolkit.Services.Datatypes.RedisSortedSets
     {
         private IDatabase client;
 
-        public RedisSortedSetService(IRedisConnectionBase redisConnectionBase)
+        public RedisSortedSetService(IRedisBase redisBase)
         {
-            this.client = redisConnectionBase.database;
+            this.client = redisBase.client;
         }
 
         public async Task<long> GetCountAsync(string sortedSetKey)
@@ -47,15 +47,15 @@ namespace RedisToolkit.Services.Datatypes.RedisSortedSets
             return totalCount;
         }
 
-        public async Task<List<SortedSetMember>> GetRangeAsync(string sortedSetKey, long start = 0, long end = -1, Order orderBy = Order.Ascending)
+        public async Task<List<SortedSetMember>> GetRangeAsync(string sortedSetKey, long start = 0, long end = -1, Order orderBy = Order.Ascending, bool shouldFetchRank = true)
         {
             var memberByRankWithScore = await client.SortedSetRangeByRankWithScoresAsync(sortedSetKey, start, end - 1, orderBy);
 
             return memberByRankWithScore.Select(x => new SortedSetMember
-            {
+            {   
                 Member = x.Element.ToString(),
                 Score = x.Score,
-                Rank = client.SortedSetRankAsync(sortedSetKey, x.Element, Order.Descending).Result.ToLongOrDefault() + 1,
+                Rank = shouldFetchRank ? client.SortedSetRankAsync(sortedSetKey, x.Element, Order.Descending).Result.ToLongOrDefault() + 1 : 0,
             }).ToList();
         }
 

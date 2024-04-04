@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RedisToolkit.Interfaces.Core
 {
-    public interface IRedisConnectionBase
+    public interface IRedisBase
     {
-        public IDatabase database { get; set; }
+        public IDatabase client { get; set; }
     }
 }

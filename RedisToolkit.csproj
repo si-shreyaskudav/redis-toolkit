@@ -11,4 +11,10 @@
     <PackageReference Include="StackExchange.Redis" Version="2.7.33" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="lua-ranks-by-scores">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

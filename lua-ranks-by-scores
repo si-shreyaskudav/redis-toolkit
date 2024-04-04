@@ -1,0 +1,18 @@
+local leaderboard_key = KEYS[1]
+local limit_start = 0;
+local limit_count = 1
+local scores = ARGV
+local results = {}
+
+for i, score in ipairs(scores) 
+do 
+	local start_score = tonumber(score) 
+	local member = redis.call('zrevrangebyscore', leaderboard_key, start_score, start_score, 'limit', limit_start, limit_count)[1] 
+	local rank 
+	if member then 
+		rank = redis.call('zrevrank', leaderboard_key, member) 
+	end 
+	results[i] = { score, rank }
+end 
+
+return results
